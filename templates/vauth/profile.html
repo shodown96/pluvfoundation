@@ -1,0 +1,156 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block profile %}active{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 mb-4 col-md-4">
+            <div class="card mb-4">
+                <div class="card-header mt-n4 mx-4 bg-crose mb-4 rounded">Edit Display Picture</div>
+                  {% if user.profile.dp %}
+                    <div class="mx-auto rounded-circle avatar" style="background-image: url('{{user.profile.dp.url}}');">
+                    <div class="img-overlay w-100 h-100 rounded-circle text-white text-center"><i class="fa fa-2x fa-camera mt-auto" aria-hidden="true"></i> </div>
+                    </div>
+                  {% else %}
+                    <div class="mx-auto rounded-circle avatar bg-info" style="background-image: url('{% if user.profile.sex|lower == 'male'%}{% static 'ngo/img/avatars/male.png' %}{% else %}{% static 'ngo/img/avatars/female.png' %}{% endif %}')">
+                    <div class="img-overlay w-100 h-100 rounded-circle text-white text-center"><i class="fa fa-2x fa-camera mt-auto" aria-hidden="true"></i> </div>
+                    </div>
+                  {% endif %}
+                <form action="{% url 'vauth:dp' %}" method="POST" enctype="multipart/form-data" class="picture-form">
+                {% csrf_token %}
+                    <input type="file" name="picture" id="id_picture" style="display: none;" accept="image/png,image/jpeg">
+                </form>
+                
+                <div class="card-body text-center">
+                    <!-- Title -->
+                    <h4 class="card-title"><strong>{{user.get_full_name}}</strong></h4>
+                    <h5 class="">{{user.profile.position}}<a href=""> @ PLUV Foundation</a></h5>
+                    <p class="dark-grey-text">{% if user.profile.location %}{{user.profile.location}}{% endif %}</p>
+                    <!-- Social -->
+                    <div class="">
+                        <a type="button" class="btn-floating btn-small"><i class="fa fa-facebook-f grey-text"></i></a>
+                        <a type="button" class="btn-floating btn-small"><i class="fa fa-twitter grey-text"></i></a>
+                        <a type="button" class="btn-floating btn-small"><i class="fa fa-linkedin grey-text"></i></a>
+                    </div>
+                    <!-- Text -->
+                    <p class="card-text mt-3">{% if user.profile.about %}{{user.profile.about}}{% endif %}</p>
+                </div>
+            </div>
+        </div>
+        <!-- work -->
+        <div class="col-mlg-8 col-md-8">
+        <div class="card">
+            <div class="card-header cus-header mt-n4 mr-4 ml-4 bg-crose rounded"> Edit Profile</div>
+            <div class="card-body">
+                <form action="{% url 'vauth:profile' %}" method="POST">
+                  {% csrf_token %}
+                    <!-- First row -->
+  
+                    <div class="row">
+  
+                      <!-- First column -->
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="form1" class="form-control validate" value="PLUV Foundation" disabled="">
+                          <label for="form1" class="active">Organization</label>
+                        </div>
+                      </div>
+                      <!-- Second column -->
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="id_username" class="form-control validate" name="username" autofocus placeholder="Username" value="{{user.username}}">
+                          <label for="id_username">Username</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- First row -->
+  
+                    <!-- First row -->
+                    <div class="row">
+                      <!-- First column -->
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="id_first_name" class="form-control validate" name="first_name" placeholder="First Name" value="{{user.first_name}}">
+                          <label for="id_first_name">First name</label>
+                        </div>
+                      </div>
+  
+                      <!-- Second column -->
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="id_last_name" name="last_name" class="form-control validate" placeholder="Last Name" value="{{user.last_name}}">
+                          <label for="id_last_name">Last name</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- First row -->
+  
+                    <!-- Second row -->
+                    <div class="row">
+  
+                      <!-- First column -->
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="email" id="id_email" name="email" class="form-control validate" placeholder="Email Address" value="{{user.email}}">
+                          <label for="id_email">Email address</label>
+                        </div>
+                      </div>
+                      <!-- Second column -->
+  
+                      <div class="col-md-6">
+                        <div class="form-label-group">
+                          <input type="text" id="id_phone_number" name="phone_number" class="form-control validate" placeholder="Phone Number" value="{{user.profile.phone_number}}">
+                          <label for="id_phone_number">Phone Number</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Second row -->
+
+                    <!-- Location row -->
+                    <div class="row">
+  
+                      <!-- First column -->
+                      <div class="col-md-12">
+                        <div class="form-label-group">
+                          <input type="text" id="id_location" class="form-control validate" name="location" placeholder="Location" value="{{user.profile.location}}">
+                          <label for="id_location">Location</label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Location row -->
+  
+                    <!-- Third row -->
+                    <div class="row">
+  
+                      <!-- First column -->
+                      <div class="col-md-12 mt-4">
+                        <div class="form-group textarea">
+                          <label for="id_about" class="textarea-label"> About me</label>
+                          <textarea type="id_about" id="id_about" name="about" class="textarea md-textarea form-control" rows="3">{% if user.profile.about %}{{user.profile.about}} {% else %} {% endif %}</textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Third row -->
+                    
+                    <!-- Fourth row -->
+                    <div class="row">
+                      <div class="col-md-12 text-center my-4">
+                        <span class="waves-input-wrapper"><input type="submit" value="Update Account" class="btn crose-btn bg-info"></span>
+                      </div>
+                    </div>
+                    <!-- Fourth row -->
+  
+                </form>
+            </div>
+        </div>
+        </div>
+        <!-- work -->
+        
+    </div>
+    
+</div>
+
+{% endblock %}

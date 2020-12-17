@@ -1,0 +1,82 @@
+{% extends 'registration/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block body %}
+<div class="form-signin">
+        {% if next %}
+            <!-- Position it -->
+            <div class="toast-container">
+                <div class="toast animated slideInRight bg-red mr-2 mt-2 bg-danger" role="alert" aria-live="assertive" aria-atomic="true" id="toast" data-autohide="false">
+                <div class="toast-body">
+                    <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>                
+                    <p class="text-light mb-0">
+                        {% if user.is_authenticated %}
+                        Your account doesn't have access to this page. To proceed,
+                        please login with an account that has access.
+                        {% else %}
+                        Please login to see this page.
+                        {% endif %}
+                    </p>
+                </div>
+                </div>
+            </div>
+            
+        {% endif %}
+        <div class="card">
+            <form method="post" action="{% url 'vauth:login' %}" class="card-body">
+                <img src="{% static 'ngo/img/core-img/logo.png' %}" alt="" class="my-4">
+                <h4>Please sign in</h4>
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for error in form.non_field_errors %}
+                <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="text-left">
+            <!-- First row -->
+            <div class="row">
+        
+                <!-- First column -->
+                <div class="col-md-12">
+                <div class="form-label-group">
+                    <input type="text" id="id_username" name="username" class="form-control validate" placeholder="Username" required>
+                    <label for="id_username" class="">Username</label>
+                </div>
+                </div>
+                <!-- First column -->
+
+                <div class="col-md-12">
+                <div class="form-label-group">
+                    <input type="password" id="id_password" name="password" class="form-control validate" placeholder="Password" required>
+                    <label for="id_password" data-error="wrong" data-success="right" class="">Password</label>
+                </div>
+                </div>
+            </div>
+            <!-- First row -->
+            
+            {# Assumes you setup the password_reset view in your URLconf #}
+                
+            <div class="row">
+                <div class=" col-6 "><input type="checkbox" id="id_remember" name="remember" value="remember-me"> Remember me</div>
+                <div class="col-6 ml-auto"><a href="{% url 'password_reset' %}" class="">Lost password?</a></div>
+            </div>
+
+            <!-- Fourth row -->
+            <div class="row">
+                <div class="col-md-12 text-center my-4">
+                <span class=""><input type="submit" value="Login" class="crose-btn btn btn-block"></span>
+                <input type="hidden" name="next" value="{{ next }}">
+                </div>
+            </div>
+            <!-- Fourth row -->
+            </div>
+            
+            </form>
+        </div>  
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+django
+gunicorn
+django-heroku
+django-taggit
+django-csp
+django-cleanup
+django-debug-toolbar
+django-storages
+boto3
+django-ckeditor
+requests
+Pillow

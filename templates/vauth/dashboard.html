@@ -1,0 +1,113 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% load tasks %}
+{% block title %}Dashboard{% endblock %}
+{% block dashboard %}active{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row bg-ash">
+        <div class="col-lg-4 mb-4">
+            <div class="card mb-4">
+            {% if user.profile.dp %}
+              <div class="mx-auto rounded-circle avatar mt-n7" style="background-image: url('{{user.profile.dp.url}}')">
+                <div class="img-overlay w-100 h-100 rounded-circle text-white text-center"><i class="fa fa-2x fa-camera mt-auto" aria-hidden="true"></i> </div>
+              </div>
+              
+            {% else %}
+              <div class="mx-auto rounded-circle avatar bg-info mt-n7" style="background-image: url('{% if user.profile.sex|lower == 'male'%}{% static 'ngo/img/avatars/male.png' %}{% else %}{% static 'ngo/img/avatars/female.png' %}{% endif %}')">
+                <div class="img-overlay w-100 h-100 rounded-circle text-white text-center"><i class="fa fa-2x fa-camera mt-auto" aria-hidden="true"></i> </div>
+              </div>
+            {% endif %}
+              <form action="{% url 'vauth:dp' %}" method="POST" enctype="multipart/form-data" class="picture-form">
+              {% csrf_token %}
+                  <input type="file" name="picture" id="id_picture" style="display: none;" accept="image/png,image/jpeg">
+              </form>
+                <div class="card-body text-center">
+                  <!-- Title -->
+                  <h4 class="card-title text-center"><strong>{{user.first_name}} {{user.last_name}}</strong></h4>
+                  <h5>{{user.profile.position}} @ <a href="#">PLUV Foundation</a></h5>
+                  <p class="dark-grey-text">{{user.profile.location}}</p>
+
+                  <!-- Social -->
+                  <a type="button" class="btn-floating btn-small"><i class="fa fa-facebook-f grey-text"></i></a>
+                  <a type="button" class="btn-floating btn-small"><i class="fa fa-twitter grey-text"></i></a>
+                  <a type="button" class="btn-floating btn-small"><i class="fa fa-linkedin grey-text"></i></a>
+
+                  <!-- Text -->
+                  <p class="card-text mt-3">{{user.profile.about}}</p>
+
+                </div>
+            </div>
+            {% if user.task_set.all %}
+              <div class="card mb-4">
+                  <div class="card-body">
+                      <h4 class="card-title">Tasks</h4>
+                      <p class="">
+                          {% for task in user.task_set.all|filter_tasks %}
+                            {% if forloop.counter < 3 %}
+                                <a class="" href="#">
+                                    <i class="fa fa-tasks mr-2" aria-hidden="true"></i>
+                                    <span>{{task.title|truncatechars:20}}</span>
+                                    <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> {{task.timestamp|time}}</span>
+                                </a>
+                            {% endif %}
+                          {% endfor %}
+                      </p>
+                      <a href="{% url 'vauth:tasks' %}" class="btn crose-btn bg-info  btn-block">See Tasks</a>
+                  </div>
+              </div>
+            {% endif %}
+            <div class="card mb-4">
+                <div class="card-body">
+  
+                  <h5 class="text-center mb-4"><strong>{{user.first_name}}'s Contributions </strong></h5>
+  
+                  <ul class="list-unstyled pt-4">
+                    <li><p>Posts <span class="badge badge-info pull-right">{{user.post_set.count}}</span></p></li>
+                    <hr>
+                    <li><p>Completed Tasks <span class="badge badge-info pull-right">{{user.task_set.all|verified}}</span></p></li>
+                    <hr>
+                    <li><p>Incompleted Tasks <span class="badge badge-info pull-right">{{user.task_set.all|tasks_count}}</span></p></li>
+                    <hr>
+                    <li><p>Total Tasks <span class="badge badge-info pull-right">{{user.task_set.all.count}}</span></p></li>
+  
+                  </ul>
+  
+                </div>
+              </div>
+        </div>
+        <!-- work -->
+        <div class="col-lg-8">
+          <h4 class="text-center">Your Posts</h4><hr>
+          <div class="row">
+            {% for post in posts %}
+              <div class="col-md-6 mb-4">
+                <div class="card">
+                  <img class="card-img-top img-fluid" src="{{post.cover.url}}" alt="">
+                  <div class="card-body">
+                    <h3 class="card-title">{{post.title}}</h3>
+                    <p class="card-text">{{post.content|safe|truncatechars:"100"}}</p>
+                  </div>
+                  <div class="card-footer bg-light">
+                          <span class="float-left">
+                              <a><i class="fa fa-share-alt btn-sm btn btn-clear"></i></a>
+                              <a href="{% url 'vauth:edit_post' post.slug %}"><i class="fa fa-pencil btn-sm btn btn-clear"></i></a>
+                            </span>
+                            <span class="float-right">
+                              <a href="{{post.get_absolute_url}}" class="">Live Preview <i class="fa fa-image ml-1 btn btn-clear"></i></a>
+                            </span>
+                      </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <a href="{% url 'vauth:posts' %}" class="float-right crose-btn bg-info text-center">See more &raquo;</a>
+        <!-- work -->
+        
+    </div>
+    
+</div>
+
+{% endblock %}

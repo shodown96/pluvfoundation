@@ -1,0 +1,358 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load admintag %}
+
+{% block title %}About Us{% endblock title %}
+{% block body %}
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">About</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### About Us Area Start ##### -->
+    <div class="about-us-area about-page section-padding-100">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-12 col-lg-5">
+                    <div class="about-content">
+                        <h2>Welcome To PLUV</h2>
+                        <p>
+                            PLUV is not a Christian Organisation as many may want to say, PLUV is a Kingdom Promotion Organisation set out to fulfil or establish the will and agendas of the king of kings, which He has made us Kings and Priests to reign. We do not represent a religion or denomination or whatever you may call it, we represent a Kingdom from above. The King of Kings walked upon this earth and died for us that we may be reconciled back to the Kingdom of Heaven. In the Kingdom of this world the subjects dies for the King but where we come from, the King came in flesh and died that the subjects might be called sons not servants.
+                            The king has sent us as an organisation on a mission to represent the kingdom to the earth that many might be reconciled to this Kingdom. We are not ourselves; We are a representation of the Kingdom to deliver The Kings message
+                            .<br/>
+                            This organisation has been mandated to inject and input the Kingdom to every sphere, facet in the world, whether business, politics, family, education, arts and entertainment, media. WE ARE WITNESSES OF THE KINGDOM.
+                        </p>
+                        <!-- <p>It’s very important to believe that you’re the one. We aim to take a different approach in reaching out and helping people along the journey. We stress cultural relevancy and utilize all medias and means to communicate the church message. It’s very important to believe that you’re the one.</p> -->
+                        <div class="opening-hours-location mt-30 d-flex align-items-center">
+                            <!-- Opening Hours -->
+                            <div class="location pl-0">
+                                <h6><i class="fa fa-map-marker text-danger"></i> Location</h6>
+                                <p>{% address  %}, {% state_country %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="about-thumbnail">
+                        <img src="{% static 'ngo/img/bg-img/26.jpg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### About Us Area End ##### -->
+
+    <!-- ##### Statements Start ##### -->
+    <div class="container">
+        <span id="our-mission"></span>
+        <h4>Our Vision</h4>
+        <p>
+            Giving Eden to Humanity.  <br/>
+            Eden; a delightful place; a paradise, a state of innocence, bliss, or ultimate happiness. 
+            It is a place where there is delight and pleasure.
+        </p>
+
+        <span id="our-mission-statement"></span>
+        <h4>Our Mission</h4>
+        <p>
+            Our mission is using positive thinking and love to meet human needs in his name without discrimination.
+        </p>
+        <span id="our-guidepost"></span>
+        <h4>Our Mission Statement</h4>
+        <p>
+            PLUV Foundation is an international movement with its message based on the bible, 
+            its ministry moltivated by the love of God and a clear mandate to meet the needs of humanity using 
+            positive thinking and love in his name without discrimination.
+        </p>
+
+        <span id="our-call"></span>
+        <h4>Our Guidepost</h4>
+        <p>Our guidepost as a foundation can be captured in the following statements, “How would that make us feel”. "If I live less than a dollar per day,...
+            I have no access to good water, living to face war daily, struggling to put a meal on my table? How would that make me feel”.
+            PLUV believes a stronger sense of empathy in our world today would tilt the balance in favor of those who are struggling in the society.
+        </p>
+
+        <h4>Our Call</h4>
+        <p>PLUV Foundation answers not only to sympathy or charity, but to something more demanding, 
+            it is a call to stand in somebody else’s shoe and see through their eyes. 
+        </p>
+        <br>
+    </div>
+    <!-- ##### Statements End ##### -->
+
+    <!-- ##### Call To Action Area Start ##### -->
+    <section class="call-to-action-area section-padding-100 bg-img bg-overlay" style="background-image: url('{% static 'ngo/img/bg-img/6.jpg' %}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="call-to-action-content text-center">
+                        <h6>A Place For You</h6>
+                        <h2>Be part of the army of visionaries leading transformations in our world today. </h2>
+                        <a href="{% url 'ngo:join' %}" class="btn crose-btn btn-2">Become A Member</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Call To Action Area End ##### -->
+
+    <!-- ##### Why Choose Us Area Start ##### -->
+    <div class="why-choose-us bg-gray section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- Section Heading -->
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h2>Why Choose Us</h2>
+                        <p>
+                            Positivity and Love is a community of change makers seeking to
+                            transform our world through positive thinking and love.
+                            We exists to meet the needs of humanity in his name 
+                            without discrimination however, whenever and wherever we can.
+                            At PLUV Foundation , we are dedicated to doing the most good.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- ##### Why Choose Us Area End ##### -->
+
+    <!-- ##### Team Members Area Start ##### -->
+    <div class="team-members-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- Section Heading -->
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h2>Executives</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Team Members Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-team-members text-center mb-100">
+                        <div class="team-thumb" style="background-image: url(' {% static 'ngo/img/bg-img/33.jpg' %}');">
+                            <div class="team-social-info">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <h6>Kayode Itunuoluwa</h6>
+                        <span>Pastor</span>
+                    </div>
+                </div>
+
+                <!-- Team Members Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-team-members text-center mb-100">
+                        <div class="team-thumb" style="background-image: url(' {% static 'ngo/img/bg-img/34.jpg' %}');">
+                            <div class="team-social-info">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <h6>Ibe Priye</h6>
+                        <span>Bishop</span>
+                    </div>
+                </div>
+
+                <!-- Team Members Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-team-members text-center mb-100">
+                        <div class="team-thumb" style="background-image: url(' {% static 'ngo/img/bg-img/35.jpg' %}');">
+                            <div class="team-social-info">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <h6>Agboola Oluwafunmilola</h6>
+                        <span>Archbishop</span>
+                    </div>
+                </div>
+
+                <!-- Team Members Area -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="single-team-members text-center mb-100">
+                        <div class="team-thumb" style="background-image: url(' {% static 'ngo/img/bg-img/36.jpg' %}');">
+                            <div class="team-social-info">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <h6>Durojaye Korede</h6>
+                        <span>Pope</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Team Members Area End ##### -->
+
+    <!-- #### What We Do #### -->
+    <section>
+        <div class="container">
+            <h3 class="text-center">What we do</h3>
+            <p class="h4">
+                We are commited to witnessing the love of christ to many, we exhibit this in the following aspects:  
+            </p><br>
+            <div class="mb-4" id="aspects-of-positive-thinking">
+                <div class="row no-gutters">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="card mr-lg-n10 mt-4 z-top">
+                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                            <div class="card-body">
+                                <h4 class="card-title">Aspects Of Positive Thinking</h4>
+                                <ul class="card-text">
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Therapy/support groups: Combat addiction</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Train kids: Primary and Secondary school students (catch them young policy)</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Stop domestic abuse</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Youth empowerment (skill acquisition, workshop)</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Organize seminars: on issues concerning youths like media, fashion music etc.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Leadership development.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Assist the unemployed</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Innovation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-thumbnail">
+                            <img src="{% static 'ngo/img/bg-img/27.jpg' %}" alt="">
+                        </div>                            
+                    </div>
+
+                </div>
+            </div>
+            <div class="mb-4" id="aspects-of-love">
+                <div class="row no-gutters">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="card mr-lg-n10 mt-5 z-top">
+                            <!-- <img class="card-img-top" src="holder.js/100x180/" alt=""> -->
+                            <div class="card-body">
+                                <h4 class="card-title">Aspects Of Love</h4>
+                                <ul class="card-text">
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Share Gods love: Soul winning.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Kingdom financiers: Missionaries</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Help disaster survivors</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Cure hunger</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Overcome poverty</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Provide shelter: IDP Camps, Assylums</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Equip families </li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Love the Elderly</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Brighten Holidays</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-thumbnail">
+                            <img src="{% static 'ngo/img/bg-img/26.jpg' %}" alt="">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mb-4">
+                <div class="row no-gutters">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-thumbnail">
+                            <img src="{% static 'ngo/img/bg-img/25.jpg' %}" alt="">
+                        </div>                       
+                    </div>
+                    <div class="col-lg-5 col-md-12">
+                        <div class="card ml-lg-n10 z-top mt-4">
+                            <div class="card-body ">
+                                <h4 class="card-title">As an Organization we are committed to leading an army of global frontiers to creating/making a positive difference:</h4>
+                                <p class="card-text">
+                                    One of the things PLUV does is to give change makers opportunity to serve. We provide a platform 
+                                    were young change makers come together all over the world providing solutions to the issues of humanity using 
+                                    the tools of positive thinking and love. A platform that encourages and gathers light bearers together no matter 
+                                    the race, color, gender, nationality to be a shining light in their community.<br>
+                                    We see ourselves spreading into the deepest deep and shinning the light by raising a call, need for how much the society needs you. 
+                                    as an organization we provide supports pertaining to the need of your community and charging them to crave to be of difference in 
+                                    the society
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <div class="row no-gutters">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-thumbnail">
+                            <img src="{% static 'ngo/img/bg-img/22.jpg' %}" alt="">
+                        </div>                        
+                    </div>
+                    <div class="col-lg-5 col-md-12">
+                        <div class="card ml-lg-n10 mt-5">
+                            <div class="card-body">
+                                <h4 class="card-title">We are commited to promoting the sustainable development goals, we advocate for the following SDG goals</h4>
+                                <ul class="card-text">
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> No Poverty</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Zero Hunger</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Good health and well-being.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Quality education.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Decent work and economic growth.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Reduce inequality within and among countries </li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Sustainable cities and communities.</li>
+                                    <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Peace, justice and strong institutions</li>
+                                </ul>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mb-4">
+                <div class="row no-gutters">
+                    <div class="col-lg-5 col-md-12">
+                        <div class="about-thumbnail">
+                            <img src="{% static 'ngo/img/bg-img/24.jpg' %}" alt="">
+                        </div>                       
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card ml-lg-n10 mt-4">
+                            <div class="card-body ">
+                                <h4 class="card-title">Our Values</h4>
+                                <p class="card-text">
+                                    <ul class="">
+                                        <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Spirituality</li>
+                                        <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Compassion</li>
+                                        <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Excellence</li>
+                                        <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Sacrifice</li>
+                                        <li><i class="fa fa-angle-double-right text-danger" aria-hidden="true"></i> Integrity</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- #### What We Do #### -->
+{% endblock body %}

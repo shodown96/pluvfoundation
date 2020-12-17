@@ -1,0 +1,416 @@
+{% load static %}
+{% load admintag %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>{% block title %}{% endblock title %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'ngo/img/core-img/favicon.ico' %}">
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="{% static 'ngo/style.css' %}">
+    
+
+</head>
+{% comment %} <button class="btn crose-btn toast-btn">TOAST</button> {% endcomment %}
+    <!-- Position it -->
+    <!-- <div class="toast-container">
+        <div class="toast animated" role="alert" aria-live="assertive" aria-atomic="true" id="toast" data-autohide="false">
+
+        <div class="toast-body bg-success">
+            <p class="text-light mb-0">The click() method triggers the click event, or attaches a function to run when a click event occurs.</p>
+        </div>
+        </div>
+    </div> -->
+
+<body>
+    {% if messages %}
+        {% for message in messages %}
+                <!-- Position it -->
+                <div class="toast-container">
+                    <div class="toast animated slideInRight bg-{{message.tags}} mr-2 mt-2" role="alert" aria-live="assertive" aria-atomic="true" id="toast" data-autohide="false">
+                    
+                    <div class="toast-body">
+                    <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                        <p class="text-light mb-0">{{message|safe}}</p>
+                    </div>
+                    </div>
+                </div>
+                
+        {% endfor %}
+    {% endif %}
+    <!-- DonateModal2 -->
+    <div class="modal right fade" id="donateModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header bg-crose">
+                    <h5 class="modal-title text-light">DONATION SLIP</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+                <div class="text-center">
+                    <i class="fa fa-credit-card fa-4x mb-3 animated rotateIn"></i>
+                    <p>
+                    <strong>Your Donation is Well Appreciated</strong>
+                    </p>
+                    <p>Want to support us in our mission?.
+                    <strong>Donate to help save souls.</strong>
+                    </p>
+                </div>
+
+                <hr>
+                <p class="text-center"><strong>Show Your Support</strong></p>
+                <form action="{% url 'payment:donate' %}" method="post" target="_blank" class="mine contact-form-area">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_donation_email">Email address</label>
+                        <input type="email" class="form-control" id="id_donation_email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_amount">Amount</label>
+                        <input type="number" class="form-control" id="id_amount" step="any" placeholder="Enter Amount (&#x20A6;)" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Message</label>
+                        <textarea class="form-control" cols=10 rows=5 placeholder="Optional" name="message" id="id_message"></textarea>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary crose-btn">Submit</button>
+                    </div>
+                    
+                </form>
+
+                </div>
+            </div>
+            <!-- modal-content -->
+        </div>
+        <!-- modal-dialog -->
+    </div>
+    <!-- EndDonateModal2-->
+
+    <!--DonateModal-->
+    <!-- <div class="modal fade-scale" tabindex="-1" role="dialog" id="donateModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header bg-crose">
+                <h5 class="modal-title text-light">Show Your Support</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'payment:donate' %}" method="post" target="_blank">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_email">Email address</label>
+                        <input type="email" class="form-control" id="id_email" aria-describedby="emailHelp" placeholder="Enter email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_amount">Amount</label>
+                        <input type="number" class="form-control" id="id_amount" placeholder="Amount" name="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Message</label>
+                        <textarea class="form-control" cols=10 rows=5 placeholder="Optional" name="message" id="id_message"></textarea>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary crose-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div> -->
+    <!--EndDonateModal-->
+
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <!-- Line -->
+        <div class="line-preloader"></div>
+    </div>
+    
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- ***** Top Header Area ***** -->
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="top-header-content d-flex flex-wrap align-items-center justify-content-between">
+                            <div class="top-header-meta">
+                                <a href="mailto:{% website_email %}" class="email-address"><i class="fa fa-envelope" aria-hidden="true"></i> <span>{% website_email %}</span></a>
+                                <a href="#" class="phone"><i class="fa fa-phone" aria-hidden="true"></i> <span>{% phone_number %}</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Top Header Area ***** -->
+
+        <!-- ***** Navbar Area ***** -->
+        <div class="crose-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="croseNav">
+
+                        <!-- Nav brand -->
+                        <a href="{% url 'ngo:index' %}" class="nav-brand"><img src="{% static 'ngo/img/core-img/pluv.jpeg' %}" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'ngo:index' %}">Home</a></li>
+                                    <li><a href="#">Pages</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'ngo:index' %}">Home</a></li>
+                                            <li><a href="{% url 'ngo:about' %}">About</a></li>
+                                            <li><a href="{% url 'ngo:projects' %}">Projects</a></li>
+                                            <li><a href="{% url 'ngo:events' %}">Events</a></li>
+                                            <li><a href="{% url 'ngo:blog' %}">Blog</a></li>
+                                            <li><a href="{% url 'ngo:contact' %}">Contact</a></li>
+                                            <li><a href="{% url 'ngo:gallery' %}">Gallery</a></li>
+                                            <li><a href="{% url 'ngo:join' %}">Join Us</a></li>
+                                        </ul>
+                                    </li>
+                                    {% comment %} <li><a href="#">Megamenu</a>
+                                        <div class="megamenu">
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="about.html">About</a></li>
+                                                <li><a href="events.html">Events</a></li>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="about.html">About</a></li>
+                                                <li><a href="events.html">Events</a></li>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="about.html">About</a></li>
+                                                <li><a href="events.html">Events</a></li>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                            <ul class="single-mega cn-col-4">
+                                                <li><a href="index.html">Home</a></li>
+                                                <li><a href="about.html">About</a></li>
+                                                <li><a href="events.html">Events</a></li>
+                                                <li><a href="blog.html">Blog</a></li>
+                                                <li><a href="contact.html">Contact</a></li>
+                                            </ul>
+                                        </div>
+                                    </li> {% endcomment %}
+                                    <li><a href="{% url 'ngo:contact' %}">Contact</a></li>
+                                    {% if user.is_authenticated %}
+                                    <li><a href="#"><b class="ti ti-user"></b></a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'vauth:dashboard' %}">Dashboard</a></li>
+                                            <li><a href="{% url 'vauth:profile' %}">Profile</a></li>
+                                            <li><a href="{% url 'vauth:tasks' %}">Tasks</a></li>
+                                            <li><a href="{% url 'vauth:posts' %}">Your Posts</a></li>
+                                            <li><a href="{% url 'logout' %}">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                    {% else %}
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    {% endif %}
+                                </ul>
+
+                                <!-- Search Button -->
+                                <div id="header-search"><i class="fa fa-search" aria-hidden="true"></i></div>
+
+                                <!-- Donate Button -->
+                                <a href="#" class="btn crose-btn header-btn"  data-toggle="modal" data-target="#donateModal2">Donate Us</a>
+
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- ***** Search Form Area ***** -->
+            <div class="search-form-area">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <div class="searchForm">
+                                <form action="{% url 'ngo:search' %}" method="get">
+                                    <input type="search" name="search" id="search" placeholder="Enter Event and Post titles &amp; hit enter...">
+                                    <button type="submit" class="d-none"></button>
+                                </form>
+                                <div class="close-icon" id="searchCloseIcon"><i class="fa fa-close" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ***** Navbar Area ***** -->
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    {% block body %}
+    {% endblock body %}
+
+    <!-- ##### Subscribe Area Start ##### -->
+    <section class="subscribe-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Subscribe Text -->
+                <div class="col-12 col-lg-6">
+                    <div class="subscribe-text">
+                        <h3>Subscribe To Our Newsletter</h3>
+                        <h6>Subcribe Us And Tell Us About Your Story</h6>
+                    </div>
+                </div>
+                <!-- Subscribe Form -->
+                <div class="col-12 col-lg-6">
+                    <div class="subscribe-form text-right">
+                        <form action="{% url 'ngo:subscribe' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="email" name="email" id="id_email" placeholder="Your Email" required>
+                            <button type="submit" class="btn crose-btn">subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Subscribe Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <!-- Main Footer Area -->
+        <div class="main-footer-area">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-footer-widget mb-70">
+                            <a href="{% url 'ngo:index' %}" class="footer-logo"><img src="{% static 'ngo/img/core-img/logo2.png' %}" alt=""></a>
+                            <p class="mt-n4">
+                            PLUV Foundation is an international movement with its message based on the Bible, its ministry moltivated by the love of God 
+                            and a clear mandate to meet the needs of humanity using positive thinking and love in his name without discrimination.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-footer-widget mb-70">
+                            <h5 class="widget-title">Quick Links</h5>
+                            <nav class="footer-menu">
+                                <ul>
+                                    <li><a href="{% url 'ngo:index' %}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Home</a></li>
+                                    <li><a href="{% url 'ngo:events' %}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Events</a></li>
+                                    <li><a href="{% url 'ngo:about' %}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> About Us</a></li>
+                                    <li><a href="{% url 'ngo:gallery' %}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Gallery</a></li>
+                                    <li><a href="{% url 'ngo:contact' %}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Contact</a></li>
+                                    <li><a href="{% url 'ngo:blog' %}"><i class="fa fa-angle-double-right" aria-hidden="true"></i> Blog</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-footer-widget mb-70">
+                            <h5 class="widget-title">Contact Us</h5>
+
+                            <div class="contact-information">
+                                <p><i class="fa fa-map-marker" aria-hidden="true"></i> {% address %}, {% state_country %}</p>
+                                <a href="callto:{{phone}}"><i class="fa fa-phone" aria-hidden="true"></i> {% phone_number %}</a>
+                                <a href="mailto:{% website_email %}"><i class="fa fa-envelope" aria-hidden="true"></i> {% website_email %}</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Copwrite Area -->
+        <div class="copywrite-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center flex-wrap">
+                    <!-- Copywrite Text -->
+                    <div class="col-12 col-md-6">
+                        <div class="copywrite-text">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                                </div>
+                            </div>
+
+                            <!-- Footer Social Icon -->
+                            <div class="col-12 col-md-6">
+                                <div class="footer-social-icon">
+                                    <a href="https://web.facebook.com/pages/category/Charity-Organization/PLUV-Foundation-2306165066371431/?_rdc=1&_rdr"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                    <!-- <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> -->
+                                    <a href="https://instagram.com/pluvfoundation"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                    <!-- <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'ngo/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'ngo/js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'ngo/js/bootstrap/bootstrap.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'ngo/js/plugins/plugins.js' %}"></script>
+    <script src="{% static 'ngo/js/wow.min.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'ngo/js/active.js' %}"></script>
+
+    {% block js %}
+    {% endblock js %}
+</body>
+
+</html>

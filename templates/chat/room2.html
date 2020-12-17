@@ -1,0 +1,200 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% load contact_chats %}
+{% block title %}{{room_name}}{% endblock %}
+{% block body %}
+{% block extra_style %}
+{% endblock %}
+    <!-- <div class="container">
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send" style="bottom: 0; right: 0; left: 0;">
+    </div> -->
+    <div class="chat-room mt-n5 mx-4 justify-content-between">
+      <h2 class="text-center mb-4">{{room_name}}</h2>
+        <div class="container-fluid">
+      
+              <div class="chat-message infinite-container">
+      
+                <ul class="list-unstyled chat" style="margin-bottom: 80px; ">
+                  <li class="d-flex mb-4">
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-3.jpg" alt="" class=" rounded-circle mx-auto img-fluid w-md-50 h-md-50" style="height:13%;width:13%">
+                    <div class="card card-body white ml-2 p-3  z-depth-1">
+                      <div class="header">
+                        <strong class="primary-font">Brad Pitt</strong>
+                        <small class="pull-right text-muted"><i class="far fa-clock"></i> 12 mins ago</small>
+                      </div>
+                      <hr class="w-100">
+                      <p class="mb-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                      </p>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-4 ml-auto">
+                    <div class="card card-body white p-3 z-depth-1">
+                      <div class="header">
+                        <strong class="primary-font">Lara Croft</strong>
+                        <small class="pull-right text-muted"><i class="far fa-clock"></i> 13 mins ago</small>
+                      </div>
+                      <hr class="w-100">
+                      <p class="mb-0">
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                        laudantium.
+                      </p>
+                    </div>
+                  </li>
+                  <li class="d-flex mb-4 pb-3">
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-7.jpg" alt="" class=" rounded-circle mx-auto img-fluid" style="height:13%;width:13%">
+                    <div class="card card-body white p-3 ml-2 z-depth-1">
+                      <div class="header">
+                        <strong class="primary-font">Brad Pitt</strong>
+                        <small class="pull-right text-muted"><i class="far fa-clock"></i> 12 mins ago</small>
+                      </div>
+                      <hr class="w-100">
+                      <p class="mb-0">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.
+                      </p>
+                    </div>
+                  </li>
+                </ul>
+                <div class="input-group shadow" style="left: 0; right: 0; bottom: 0; position: fixed;">
+                  <div class="input-group-prepend w-100">
+                  <textarea name="" id="chat-message-input" cols="30" rows="2" class="form-control w-100"></textarea>
+                    <div class="input-group-text px-0 py-0">
+                        <button id="chat-message-submit" type="button" class="btn btn-outline fa fa-paper-plane w-100 h-100"></button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+      
+        </div>
+    </div>
+    {{ room_name|json_script:"room-name" }}
+    <script src="{% static 'ngo/js/reconnecting-websocket.js' %}"></script>
+    <script>
+
+    var roomName = "{{ room_name }}";
+    var username = "{{ user.username }}";
+    var chatId = "{{chat_id}}";
+    var male_avatar = "{% static 'ngo/img/avatars/male.png' %}";
+    var female_avatar = "{% static 'ngo/img/avatars/female.png' %}"; 
+
+    var chatSocket = new ReconnectingWebSocket(
+        'ws://' + window.location.host +
+        '/ws/chat/' + roomName + '/');
+
+    chatSocket.onopen = function(e) {
+    }
+
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        if (data['command'] === 'messages') {
+          for (let i=0; i<data['messages'].length; i++) {
+            createMessage(data['messages'][i]);
+          }
+        } else if (data['command'] === 'new_message'){
+          createMessage(data['message']);
+        }
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        var messageInputDom = document.getElementById('chat-message-input');
+        var message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'command': 'new_message',
+            'message': message,
+            'from': username,
+            'chatId': chatId
+        }));
+
+        messageInputDom.value = '';
+    };
+
+    function fetchMessages() {
+      chatSocket.send(JSON.stringify({'command': 'fetch_messages','chatId': chatId }));
+    }
+    
+        
+        function createMessage(data){
+            var author = data.author;
+            var message = data.message;
+            var timestamp = new Date(data.timestamp).toLocaleString();
+
+            chatList = document.querySelector('.chat')
+            li = document.createElement('li');
+            img = document.createElement('img');
+            card = document.createElement('div');
+            header = document.createElement('div');
+            strong = document.createElement('strong');
+            small = document.createElement('small');
+            hr = document.createElement('hr');
+            p = document.createElement('p')
+
+            li.className = 'd-flex mb-4';
+
+            img.className = 'rounded-circle mx-auto img-fluid';
+            img.style.height = "13%";
+            img.style.width = "13%";
+
+            if(data.avatar){
+            img.src = data.avatar;
+            }
+            else{
+              img.classList.add('bg-info');
+              if(data.sex === "male"){
+                img.src = male_avatar;
+              }
+              else{
+                img.src = female_avatar
+              }
+            }
+
+            card.className = 'card card-body p3';
+            small.className = 'text-muted';
+
+            strong.textContent = data.author;
+            small.className = "pull-right text-muted";
+            small.innerHTML = "<i class='far fa-clock'></i> "+timestamp;
+
+            hr.className = 'w-100';
+            p.textContent = data.content;
+
+            header.appendChild(strong);
+            header.appendChild(small);
+
+            card.appendChild(header);
+            card.appendChild(hr);
+            card.appendChild(p);
+            if(author == "{{user.username}}"){
+                li.appendChild(card);
+                strong.textContent = "You";
+            }
+            else{
+                card.classList.add('ml-2');
+                li.appendChild(img);
+                li.appendChild(card);
+
+            }
+            chatList.appendChild(li);
+            window.scrollBy(0,1000)
+
+        }
+    </script>
+{% endblock %}
+{% block js%}
+ <script src="{% static 'ngo/js/waypoint.js' %}"></script>
+  <script src="{% static 'ngo/js/infinite.js' %}"></script>
+{% endblock %}

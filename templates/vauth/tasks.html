@@ -1,0 +1,78 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}Tasks{% endblock %}
+{% block tasks %}active{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 mb-4 col-sm-4">
+            <div class="card mb-4">
+              {% if user.profile.dp %}
+                <div class="mx-auto rounded-circle avatar" style="background-image: url('{{user.profile.dp.url}}')">
+                  <div class="img-overlay w-100 h-100 rounded-circle text-white text-center"><i class="fa fa-2x fa-camera mt-auto" aria-hidden="true"></i> </div>
+                </div>
+              {% else %}
+                <div class="mx-auto rounded-circle avatar bg-info" style="background-image: url('{% if user.profile.sex == 'male'%}{% static 'ngo/img/avatars/male.png' %}{% else %}{% static 'ngo/img/avatars/female.png' %}{% endif %}')">
+                  <div class="img-overlay w-100 h-100 rounded-circle text-white text-center"><i class="fa fa-2x fa-camera mt-auto" aria-hidden="true"></i> </div>
+                </div>
+              {% endif %}
+              <form action="{% url 'vauth:dp' %}" method="POST" enctype="multipart/form-data" class="picture-form">
+                {% csrf_token %}
+                    <input type="file" name="picture" id="id_picture" style="display: none;" accept="image/png,image/jpeg">
+                </form>
+                
+                <div class="card-body text-center">
+                  <!-- Title -->
+                  <h4 class="card-title text-center"><strong>{{user.first_name}} {{user.last_name}}</strong></h4>
+                  <h5>Web designer at <a href="">PLUV Foundation</a></h5>
+                  <p class="dark-grey-text">{{user.profile.location}}</p>
+
+                  <!-- Social -->
+                  <a type="button" class="btn-floating btn-small"><i class="fa fa-facebook-f grey-text"></i></a>
+                  <a type="button" class="btn-floating btn-small"><i class="fa fa-twitter grey-text"></i></a>
+                  <a type="button" class="btn-floating btn-small"><i class="fa fa-linkedin grey-text"></i></a>
+
+                  <!-- Text -->
+                  <p class="card-text mt-3">{{user.profile.about}}</p>
+
+                </div>
+            </div>
+        </div>
+        <!-- work -->
+        <div class="col-md-8 col-sm-8">
+          <div class="row">
+            {% for task in user.task_set.all %}
+              <div class="col-md-12 mb-4 animated fadeInUp">
+                <div class="card">
+                  {% comment %} <div class="card-header bg-crose ">Task 1</div> {% endcomment %}
+                    <div class="card-body">
+                      <h3 class="card-title">{{task.title}}</h3>
+                      <p class="card-text">{{task.content}}</p>
+                    </div>
+                    <div class="card-footer text-muted text-right">
+                    {% if task.verified %}
+                    <a  class="btn crose-btn btn-sm bg-success text-light">Verified</a>
+                    {% else %}
+                    <a  class="btn crose-btn btn-sm bg-secondary text-light">Verified</a>
+                    {% endif %}
+                    {% if task.completed %}
+                    <a  class="btn crose-btn btn-sm bg-success text-light">Completed</a>
+                    {% else %}
+                    <a href="{% url 'vauth:complete_task' task.id %}" class="btn crose-btn btn-sm bg-info text-light">Complete</a>
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+              <p class="text-center">You don't have any tasks yet</p>
+            {% endfor %}
+          </div>
+        <!-- work -->
+        </div>
+    
+</div>
+
+{% endblock %}

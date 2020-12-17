@@ -1,0 +1,131 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load filter %}
+{% block title %}Events{% endblock title %}
+{% block body %}
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Events</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Events Area Start ##### -->
+    <div class="events-area section-padding-100">
+        <div class="container">
+            <div class="row">
+
+                <!-- Event Search Form -->
+                <div class="col-12">
+                    <div class="event-search-form mb-50">
+                        <form action="{% url 'ngo:events' %}" method="get">
+                            <div class="row align-items-end">
+                                <div class="col-12 col-md">
+                                    <div class="form-group mb-0">
+                                        <label for="eventDate">Event In</label>
+                                        <input type="date" class="form-control" id="eventDate" placeholder="Event In" name="date" value="{{raw_date}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md">
+                                    <div class="form-group mb-0">
+                                        <label for="eventLocation">Near</label>
+                                        <input type="text" class="form-control" id="eventLocation" placeholder="Location" name="location" value="{{location}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md">
+                                    <div class="form-group mb-0">
+                                        <label for="eventKeyword">Tag</label>
+                                        <input type="text" class="form-control" id="eventKeyword" placeholder="Typing Keyword" name="tag" value="{{tag}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-3 col-lg-2">
+                                    <button type="submit" class="btn crose-btn">Find Events</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Events Title -->
+                <div class="col-12">
+                    <div class="events-title">
+                        <h2>{% if date %} Events around {{date|date:"F d, Y"}}{% elif not events%}Found Nothing...{% else %}Latest Events{% endif %}</h2>
+                    </div>
+                </div>
+                {% for event in events %}
+                <div class="col-12">
+                    <!-- Single Upcoming Events Area -->
+                    <div class="single-upcoming-events-area d-flex flex-wrap align-items-center">
+                        <!-- Thumbnail -->
+                        <div class="upcoming-events-thumbnail">
+                            {% if event.cover %}
+                            <img src="{{event.cover.url}}" alt="">
+                            {% else %}
+                            <img src="{% static 'ngo/img/bg-img/23.jpg' %}" alt="">
+                            {% endif %}
+                        </div>
+                        <!-- Content -->
+                        <div class="upcoming-events-content d-flex flex-wrap align-items-center">
+                            <div class="events-text">
+                                <h4>{{event.title}}</h4>
+                                <div class="events-meta">
+                                    <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{event.due_datetime|date:"F d, Y"}}</a>
+                                    <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.due_datetime|time}}</a>
+                                    <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i>{{event.location}}</a>
+                                </div>
+                                <p>{{event.content|safe|truncatechars:"100"}}</p>
+                                <p class="post-excerpt">
+                                {% for x in event.tags.all %}
+                                    <a href="{% url 'ngo:events' %}?tag={{x}}">{{x}}{% if forloop.last %}{% else %},{% endif %}</a>
+                                {% endfor %}
+                                </p>
+                                <a href="{{event.get_absolute_url}}">Read More <i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                            <div class="find-out-more-btn">
+                                <a href="{{event.get_absolute_url}}" class="btn crose-btn btn-2">Find Out More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                {% if not date %} Sorry, Events Havent't Been Posted Yet {% endif %}
+                {% endfor %}
+
+                {% if events.has_other_pages %}
+                <div class="col-12">
+                    <div class="pagination-area mt-70">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="?{% query_transform request page=1 %}"><i class="fa fa-angle-double-left"></i></a></li>
+                                {% for i in events.paginator.page_range %}
+                                    {% if i >= previous_5  and i < next_10 %}
+                                        {% if events.number == i %}
+                                            <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link" href="?{% query_transform request page=i %}">{{i}}</a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                <li class="page-item"><a class="page-link" href="?{% query_transform request page=events.paginator.num_pages%}"><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- ##### Events Area End ##### -->
+
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% block title %}{{cobject.title}}{% endblock title %}
+{% block body %}
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            {% if event %}
+                            <li class="breadcrumb-item"><a href="{% url 'ngo:events' %}">Events</a></li>
+                            {% elif post %}
+                            <li class="breadcrumb-item"><a href="{% url 'ngo:blog' %}">Blog</a></li>
+                            {% else %}
+                            <li class="breadcrumb-item"><a href="{% url 'ngo:projects' %}">Projects</a></li>
+                            {% endif %}
+                            <li class="breadcrumb-item active" aria-current="page">{{cobject.title}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Blog Content Area Start ##### -->
+    <section class="blog-content-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-between">
+                <!-- Blog Posts Area -->
+                <div class="col-12 col-lg-8">
+                    <div class="blog-posts-area">
+
+                        <!-- Post Details Area -->
+                        <div class="single-post-details-area">
+                            <div class="post-thumbnail mb-30">
+                                <img src="{{cobject.cover.url}}" alt="">
+                            </div>
+                            <div class="post-content">
+                                <h2 class="post-title">{{cobject.title}}</h2>
+                                {% if event %}<a href="#" id="video-clip" data-embed='{{cobject.embed_script}}' class="text-danger"> &raquo; Watch Video Clip &laquo;</a>{% endif %}
+                                <p>{{cobject.content|safe}}</p>
+                            </div>
+                        </div>
+
+                        <!-- Post Tags & Share -->
+                        <div class="post-tags-share d-flex justify-content-between align-items-center">
+                            <!-- Tags -->
+                            <ol class="popular-tags d-flex flex-wrap">
+                                <li>Tags:</li>
+                                {% for x in cobject.tags.all %}
+                                <li>
+                                    <a href="{% if event %}{% url 'ngo:events' %}{% else %}{% url 'ngo:blog' %}{% endif %}?tag={{x}}">
+                                        {{x}}{% if forloop.last %}{% else %},{% endif %}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ol>
+                            <!-- Share -->
+                            <div class="post-share">
+                                <span>Share:</span>
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        {% comment %} for video url {% endcomment %}
+                        {% if project %}
+                        <!-- Leave A Comment -->
+                        <div class="leave-comment-area mt-50 clearfix">
+                            <div class="comment-form">
+                                <h4 class="headline">Show Your Support</h4>
+                                <!-- Contact Form Area -->
+                                <div class="contact-form-area">
+                                    <form action="#" method="post">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" id="contact-name" placeholder="Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" id="contact-email" placeholder="Email">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control" id="contact-number" placeholder="Amount">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn crose-btn mt-15">Post Comment</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Blog Sidebar Area -->
+                <div class="col-12 col-sm-9 col-md-6 col-lg-3">
+                    <div class="post-sidebar-area">
+
+                        <!-- ##### Single Widget Area ##### -->
+                        <div class="single-widget-area">
+                            <div class="search-form">
+                                {% if events %}
+                                <form action="{% url 'ngo:events' %}" method="get">
+                                {% elif posts %}
+                                <form action="{% url 'ngo:posts' %}" method="get">
+                                {% else %}
+                                <form action="{% url 'ngo:search' %}" method="get">
+                                {% endif %}
+                                    <input type="search" name="search" placeholder="Search Here">
+                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+                        {% if post or project %}
+                        <!-- ##### Single Widget Area ##### -->
+                        <div class="single-widget-area">
+                            <!-- Title -->
+                            <div class="widget-title">
+                                <h6>Categories</h6>
+                            </div>
+                            <ol class="crose-catagories">
+                            {% for x in categories %}
+                                <li>
+                                    <a href="{% url 'ngo:blog' %}?category=x.slug">
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>{{x.title}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ol>
+                        </div>
+                        {% endif %}
+
+                        <!-- ##### Single Widget Area ##### -->
+                        <div class="single-widget-area">
+                            <!-- Title -->
+                            <div class="widget-title">
+                                <h6>Recent News</h6>
+                            </div>
+
+                            {% for post in news %}
+                            <!-- Single Latest Posts -->
+                            <div class="single-latest-post">
+                                <a href="{{post.get_absolute_url}}" class="post-title">
+                                    <h6>{{post.title}}</h6>
+                                </a>
+                                <p class="post-date">{{post.created}}</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Blog Content Area End ##### -->
+
+{% endblock %}

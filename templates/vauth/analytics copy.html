@@ -1,0 +1,415 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}Analytics{% endblock %}
+{% block analytics %}active{% endblock %}
+
+{% block body %}
+
+<!-- <div class="container">
+    <ul class="nav justify-content-center flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Visitors: {{visitors.count}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Active Users: {{active_users.count}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Inactive Users: {{inactive_users.count}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Logged in Users Today: {{authenticated_users.coount}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Donations: {{donations.count}}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Total donation amount: &#x20A6; {{total_amount}}0</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Subscribers: {{subscribers}}</a>
+        </li>
+    </ul>
+</div> -->
+<div class="container-fluid px-5">
+  
+  <section class="mt-md-4 pt-md-2 mb-5">
+    <div class="row">
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+
+        <div class="card ">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="far fa-money-bill-alt bg-primary card-icon shadow"></i>
+            <div class="data text-right mt-4 pt-2">
+              <p class="text-uppercase">Donations</p>
+              <h5 class="font-weight-bold dark-grey-text ">&#x20A6; {{total_amount}}0</h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+
+        <div class="card ">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="fas fa-chart-line bg-warning card-icon shadow"></i>
+            <div class="data text-right mt-4  pt-2">
+              <p class="text-uppercase">Subscription</p>
+              <h5 class="font-weight-bold dark-grey-text ">{{subscribers}}</h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+
+        <div class="card ">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="fas fa-chart-pie bg-info card-icon shadow"></i>
+            <div class="data text-right mt-4 pt-2">
+              <p class="text-uppercase">Traffic</p>
+              <h5 class="font-weight-bold dark-grey-text ">{{visitors.count}}</h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+
+        <div class="card ">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="far fa-chart-bar bg-danger card-icon shadow"></i>
+            <div class="data text-right mt-4  pt-2">
+              <p class="text-uppercase">Organic Traffic</p>
+              <h5 class="font-weight-bold dark-grey-text ">4 571 $</h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="mt-md-4 pt-md-2 mb-5">
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="card mb-4">
+
+          <div class="card-header text-light bg-primary">
+            <h4 class="font-weight-500 my-1 text-white">Users activity</h4>
+          </div>
+
+          <div class="card-body">
+
+            <div class="row my-2 pt-1">
+              <div class="col-4">
+                <small class="grey-text">Pages/Visits</small>
+                <h4 >139 419</h4>
+              </div>
+              <div class="col-4">
+                <small class="grey-text">New visitors</small>
+                <h4 >51.94%</h4>
+              </div>
+              <div class="col-4">
+                <small class="grey-text">Last week</small>
+                <h4 >51 932</h4>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-4">
+                <small class="grey-text">Pages/Visits</small>
+                <h4 >139 419</h4>
+              </div>
+              <div class="col-4">
+                <small class="grey-text">New visitors</small>
+                <h4 >51.94%</h4>
+              </div>
+              <div class="col-4">
+                <small class="grey-text">Last week</small>
+                <h4 >51 932</h4>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-4">
+                <small class="grey-text">Pages/Visits</small>
+                <h4 >139 419</h4>
+              </div>
+              <div class="col-4">
+                <small class="grey-text">New visitors</small>
+                <h4 >51.94%</h4>
+              </div>
+              <div class="col-4">
+                <small class="grey-text">Last week</small>
+                <h4 >51 932</h4>
+              </div>
+            </div>
+
+            <!-- <button class="btn btn btn-flat grey lighten-3 btn-rounded waves-effect font-weight-bold dark-grey-text float-right btn-dash">View full report</button> -->
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+          <canvas id="myChart"></canvas>
+      </div>
+    </div>
+  </section>
+  <section class="pb-3 mb-5">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+        <!-- Card Primary -->
+        <div class="card text-light bg-primary admin-credit">
+          <div class="card-body p-3">
+            <div class="pull-right">
+              <i class="far fa-money-bill-alt"></i>
+            </div>
+            <p class="text-white mb-0">Donations</p>
+            <h5 class="text-white">2000$</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-3" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Better than last week (25%)</p>
+          </div>
+        </div>
+        <!-- Card Primary -->
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+        <!-- Card Yellow -->
+        <div class="card text-light bg-warning admin-credit">
+          <div class="card-body">
+            <div class="pull-right">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <p class="text-white mb-0">SUBSCRIPTIONS</p>
+            <h5 class="text-white">200</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-3" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Worse than last week (25%)</p>
+          </div>
+        </div>
+        <!-- Card Yellow -->
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-md-0 mb-4">
+
+        <!-- Card Blue -->
+        <div class="card text-white bg-info lighten-1 admin-credit">
+          <div class="card-body">
+            <div class="pull-right">
+              <i class="fas fa-chart-pie"></i>
+            </div>
+            <p class="text-white mb-0">TRAFFIC</p>
+            <h5 class="text-white">20000</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-4" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Better than last week (75%)</p>
+          </div>
+        </div>
+        <!-- Card Blue -->
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-0">
+
+        <!-- Card Red -->
+        <div class="card text-light bg-danger admin-credit">
+          <div class="card-body">
+            <div class="pull-right">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <p class="text-white mb-0">ORGANIC TRAFFIC</p>
+            <h5 class="text-white">2000</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-4" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Better than last week (25%)</p>
+          </div>
+        </div>
+        <!-- Card Red -->
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </section>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 200, 140)',
+            borderColor: 'rgb(255, 200, 140)',
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
+<script>
+  var presets = window.chartColors;
+  var utils = Samples.utils;
+  var inputs = {
+    min: -100,
+    max: 100,
+    count: 8,
+    decimals: 2,
+    continuity: 1
+  };
+
+  function generateData(config) {
+    return utils.numbers(Chart.helpers.merge(inputs, config || {}));
+  }
+
+  function generateLabels(config) {
+    return utils.months(Chart.helpers.merge({
+      count: inputs.count,
+      section: 3
+    }, config || {}));
+  }
+
+  var options = {
+    maintainAspectRatio: false,
+    spanGaps: false,
+    elements: {
+      line: {
+        tension: 0.000001
+      }
+    },
+    plugins: {
+      filler: {
+        propagate: false
+      }
+    },
+    scales: {
+      xAxes: [{
+        ticks: {
+          autoSkip: false,
+          maxRotation: 0
+        }
+      }]
+    }
+  };
+
+  [false, 'origin', 'start', 'end'].forEach(function(boundary, index) {
+
+    // reset the random seed to generate the same data for all charts
+    utils.srand(8);
+
+    new Chart('chart-' + index, {
+      type: 'line',
+      data: {
+        labels: generateLabels(),
+        datasets: [{
+          backgroundColor: utils.transparentize(presets.red),
+          borderColor: presets.red,
+          data: generateData(),
+          label: 'Dataset',
+          fill: boundary
+        }]
+      },
+      options: Chart.helpers.merge(options, {
+        title: {
+          text: 'fill: ' + boundary,
+          display: true
+        }
+      })
+    });
+  });
+
+  // eslint-disable-next-line no-unused-vars
+  function toggleSmooth(btn) {
+    var value = btn.classList.toggle('btn-on');
+    Chart.helpers.each(Chart.instances, function(chart) {
+      chart.options.elements.line.tension = value ? 0.4 : 0.000001;
+      chart.update();
+    });
+  }
+
+  // eslint-disable-next-line no-unused-vars
+  function randomize() {
+    var seed = utils.rand();
+    Chart.helpers.each(Chart.instances, function(chart) {
+      utils.srand(seed);
+
+      chart.data.datasets.forEach(function(dataset) {
+        dataset.data = generateData();
+      });
+
+      chart.update();
+    });
+  }
+</script>
+{% endblock js %}

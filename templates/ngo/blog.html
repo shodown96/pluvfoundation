@@ -1,0 +1,145 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load filter %}
+{% block title %}Blog{% endblock title %}
+{% block body %}
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Blog</li>
+                            {% if category %}<li class="breadcrumb-item active" aria-current="page">{{category.title}}</li>{% endif %}
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Blog Area Start ##### -->
+    <div class="blog-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-between">
+                {% if term or tag %}
+                <div class="col-12">
+                    <div class="events-title">
+                        <h2>Posts related to "{% if term %}{{term}}{% elif tag %}{{tag}}{% endif %}"</h2>
+                    </div>
+                </div>
+                {% endif %}
+                <!-- Blog Post Area -->
+                <div class="col-12 col-lg-8">
+                    <div class="row">
+                        {% for post in posts %}
+                        <!-- Single Blog Post Area -->
+                        <div class="col-12 col-md-6">
+                            <div class="single-blog-post mb-50">
+                                <div class="post-thumbnail">
+                                    <a href="{{post.get_absolute_url}}"><img src="{{post.cover.url}}" alt=""></a>
+                                </div>
+                                <div class="post-content">
+                                    <a href="{{post.get_absolute_url}}" class="post-title">
+                                        <h4>{{post.title}}</h4>
+                                    </a>
+                                    <div class="post-meta d-flex">
+                                        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> {{post.author}}</a>
+                                        <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i> {{post.created|date:"F d, Y"}}</a>
+                                    </div>
+                                    <p class="post-excerpt">{{post.content|safe|truncatechars:"100"}}</p>
+                                    <p class="post-excerpt">
+                                    {% for x in post.tags.all %}
+                                        <a href="{% url 'ngo:blog' %}?tag={{x}}">{{x}}{% if forloop.last %}{% else %},{% endif %}</a>
+                                    {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p class="mb-50">No News for now, please cheack later </p>
+                        {% endfor %}
+
+                    </div>
+
+                    {% if posts.has_other_pages %}
+                        <div class="pagination-area">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                <li class="page-item"><a class="page-link" href="?{% query_transform request page=1 %}"><i class="fa fa-angle-double-left"></i></a></li>
+                                    {% for i in posts.paginator.page_range %}
+                                        {% if i >= previous_5  and i < next_10 %}
+                                            {% if posts.number == i %}
+                                                <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                            {% else %}
+                                                <li class="page-item"><a class="page-link" href="?{% query_transform request page=i %}">{{i}}</a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <li class="page-item"><a class="page-link" href="?{% query_transform request page=posts.paginator.num_pages%}"><i class="fa fa-angle-double-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Sidebar Area -->
+                <div class="col-12 col-lg-3">
+                    <div class="post-sidebar-area">
+
+                        <!-- ##### Single Widget Area ##### -->
+                        <div class="single-widget-area">
+                            <div class="search-form">
+                                <form action="{% url 'ngo:blog' %}" method="get">
+                                    <input type="search" name="search" placeholder="Search Here" name="search" value="{{term}}">
+                                    <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- ##### Single Widget Area ##### -->
+                        <div class="single-widget-area">
+                            <!-- Title -->
+                            <div class="widget-title">
+                                <h6>Categories</h6>
+                            </div>
+                            <ol class="crose-catagories">
+                            {% for x in categories %}
+                                <li><a href="{% url 'ngo:blog' %}?category={{x.slug}}"><i class="fa fa-angle-right" aria-hidden="true"></i>{{x.title}}</a></li>
+                            {% endfor %}
+                            </ol>
+                        </div>
+
+                        <!-- ##### Single Widget Area ##### -->
+                        <div class="single-widget-area">
+                            <!-- Title -->
+                            <div class="widget-title">
+                                <h6>Recent News</h6>
+                            </div>
+
+                            {% for post in news %}
+                            {% if forloop.counter <= 4 %}
+                            <!-- Single Latest Posts -->
+                            <div class="single-latest-post">
+                                <a href="{{post.get_absolute_url}}" class="post-title">
+                                    <h6>{{post.title}}</h6>
+                                </a>
+                                <p class="post-date">{{post.created}}</p>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Blog Area End ##### -->
+
+{% endblock %}

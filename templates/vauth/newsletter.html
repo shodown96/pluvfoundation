@@ -1,0 +1,61 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}NewsLetter{% endblock %}
+{% block profile %}active{% endblock %}
+
+{% block head %}<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>{% endblock head %}
+
+{% block body %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header cus-header text-center mt-n4 mr-4 ml-4 bg-crose rounded"> Send A NewsLetter to all your Subscibers</div>
+        <div class="card-body">
+            <form action="{% url 'vauth:newsletter' %}" method="POST" class="mine contact-form-area">
+              {% csrf_token %}
+
+                <!-- Title row -->
+                <div class="row">
+
+                  <!-- First column -->
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="id_title">Title</label>
+                      <input type="text" id="id_title" class="form-control validate" name="title" placeholder="Title">
+                    </div>
+                  </div>
+                </div>
+                <!-- Title row -->
+
+                <!-- Third row -->
+                <div class="row">
+
+                  <!-- First column -->
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="id_about">Body</label><br>
+                      {{form.body}}
+                      </div>
+                  </div>
+                </div>
+                <!-- Third row -->
+
+                <!-- Fourth row -->
+                <div class="row">
+                  <div class="col-md-12 text-center my-4">
+                    <span class="waves-input-wrapper"><input type="submit" value="Send" class="btn crose-btn bg-info"></span>
+                  </div>
+                </div>
+                <!-- Fourth row -->
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

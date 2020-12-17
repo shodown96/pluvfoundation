@@ -1,0 +1,43 @@
+/* ADMIN SITE */
+.module h2, .module caption, .inline-group h2{
+  background-color: #c92f2f;
+}
+#header{
+  background-color: #5a0101;
+
+}
+#user-tools a:hover, #user-tools a:focus{
+  border-bottom:  1px solid;
+  color:  #c92f2f !important;
+}
+#site-name a:link:hover, #site-name a:link:focus{
+  color: #f5dd5d !important;
+}
+
+a:link, a:visited {
+  color:#400;
+}
+a:focus, a:hover {
+  color:  #910e0d ;
+}
+#changelist-filter li.selected a {
+  /* color: #5b80b2; */
+  color:  #5a0101
+}
+div.breadcrumbs{
+  background-color: #c92f2f;
+  color: #550505b4;
+}
+div.breadcrumbs a:focus, div.breadcrumbs a:hover{
+  color:#fff !important;
+  text-decoration: underline;
+}
+input[name=_addanother]{
+background-color: #4DB6AC !important
+}
+input[name=_continue]{
+background-color: #4DB6AC !important
+}
+input[name=_save]{
+background-color: #009688 !important
+}

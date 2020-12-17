@@ -1,0 +1,158 @@
+{% extends 'ngo/base.html' %}
+{% load static %}
+{% load filter %}
+{% block title %}Become A Member{% endblock title %}
+{% block body %}
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Become a member</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+<!-- Application area -->
+<div class="container">
+    <div class="card mt-4 mb-4">
+        <div class="card-body">
+            <h2 class="text-center mt-2 mb-4">Apply Here</h2>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="container">
+                    <h4 class="text-center">Terms Of Use</h4>
+                
+                    {% lorem 3 p random %}
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-center">Your Details</h4>
+                    <form action="{% url 'ngo:join' %}" method="post" class="contact-form-area mine">
+                    {% csrf_token %}
+                            <!-- First row -->
+                            <div class="row">
+          
+                              <!-- First column -->
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <input type="text" id="id_first_name" name="first_name" class="form-control validate" placeholder="First Name" autofocus required>
+                                  {% if form.errors %}
+                                  {% for error in form.first_name.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <!-- Second column -->
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <input type="text" id="last_name" name="last_name" class="form-control validate"  placeholder="Last Name" required>
+                                  {% if form.errors %}
+                                  {% for error in form.last_name.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- First row -->
+          
+                            <!-- First row -->
+                            <div class="row">
+                              <!-- First column -->
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <input type="text" id="id_middle_name" name="middle_name" class="form-control validate" placeholder="Middle Name" required>
+                                  {% if form.errors %}
+                                  {% for error in form.middle_name.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <select type="text" id="id_sex" name="sex" class="form-control validate" required>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                  </select>
+                                  {% if form.errors %}
+                                  {% for error in form.sex.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+          
+                              <!-- Second column -->
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="email" id="id_email" name="email" class="form-control validate" placeholder="Email" required>
+                                  {% if form.errors %}
+                                  {% for error in form.email.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- First row -->
+          
+                            <!-- Second row -->
+                            <div class="row">
+          
+                              <!-- First column -->
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="tel" id="id_phone_number" name="phone_number" class="form-control validate" placeholder="Phone Number" required>
+                                </div>
+                                  {% if form.errors %}
+                                  {% for error in form.phone_number.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                              </div>
+                              <!-- Second column -->
+          
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="text" id="id_address" name="address" class="form-control validate" placeholder="Address" required>
+                                  {% if form.errors %}
+                                  {% for error in form.address.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Second row -->
+          
+                            <!-- Third row -->
+                            <div class="row">
+          
+                              <!-- First column -->
+                              <div class="col-md-12 mt-4">
+                                <div class="form-group textarea">
+                                  <textarea type="text" id="id_statement" name="statement" class="form-control" rows="3" required placeholder="Statement"></textarea>
+                                  {% if form.errors %}
+                                  {% for error in form.statement.errors %}<small class="text-danger">{{error}}</small>{% endfor %}
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Third row -->
+          
+                            <!-- Fourth row -->
+                            <div class="row">
+                              <div class="col-md-12 text-center my-4">
+                              <input type="submit" value="Apply" class="btn crose-btn">
+                              </div>
+                            </div>
+                            <!-- Fourth row -->
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Application area -->
+
+{% endblock %}

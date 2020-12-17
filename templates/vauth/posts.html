@@ -1,0 +1,145 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}Your Posts{% endblock %}
+{% block posts %}active{% endblock %}
+
+{% block head %}<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>{% endblock head %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- work -->
+        <div class="col-lg-12 mb-4">
+          <h4 class="text-center">Your Posts</h4><hr>
+          <div class="row">
+            {% for post in posts %}
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                  <img class="card-img-top img-fluid" src="{{post.cover.url}}" alt="">
+                  <div class="card-body">
+                    <h3 class="card-title">{{post.title}}</h3>
+                    <p class="card-text">{{post.content|safe|truncatechars:"100"}}</p>
+                  </div>
+                  <div class="card-footer bg-light">
+                          <span class="float-left">
+                              <a><i class="fa fa-share-alt btn-sm btn btn-clear"></i></a>
+                              <a href="{% url 'vauth:edit_post' post.slug %}"><i class="fa fa-pencil btn-sm btn btn-clear"></i></a>
+                            </span>
+                            <span class="float-right">
+                              <a href="{{post.get_absolute_url}}" class="">Live Preview <i class="fa fa-image ml-1 btn btn-clear"></i></a>
+                            </span>
+                      </div>
+                </div>
+              </div>
+              {% empty %}
+              <p class="text-center col-lg-12">You haven't uploaded any Posts yet</p>
+            {% endfor %}
+          </div>
+
+          {% if posts.has_other_pages %}
+            <div class="col-12">
+                <div class="pagination-area mt-70">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
+                            {% for i in posts.paginator.page_range %}
+                                {% if i >= previous_5  and i < next_10 %}
+                                    {% if posts.number == i %}
+                                        <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            <li class="page-item"><a class="page-link" href="?page=posts.paginator.num_pages"><i class="fa fa-angle-double-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+          {% endif %}
+
+        </div>
+        <div class="col-lg-12">
+          <div class="card container">
+            <div class="card-header cus-header mt-n4 mr-4 ml-4 bg-crose rounded text-center">New Post</div>
+              <div class="card-body">
+                  <form action="{% url 'vauth:posts' %}" method="POST" enctype="multipart/form-data" class="contact-form-area mine">
+                    {% csrf_token %}
+                      <!-- row -->
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="id_title" class="active">Title</label>
+                            <input type="text" id="id_title" name="title" class="form-control validate" placeholder="Title" required>
+                          </div>
+                        </div>
+
+                        <!-- Category column -->
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <!-- <input type="text" id="id_category" class="form-control validate" name="category" placeholder="Category" value=""> -->
+                            <label for="id_category">Category</label>
+                            <select name="category" id="id_category" class="form-control validate" name="category" required>
+                              <option value="">Select</option>
+                              {% for x in categories %}
+                              <option value="{{x.id}}">{{x.title}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                        
+                        <!-- Content column -->
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="id_content">Content</label><br>
+                            {{form.content}}
+                          </div>
+                        </div>
+
+    
+                        <!-- Tags column -->
+                        <div class="col-md-12">
+                          <div class="form-group">
+                          <label for="id_tags" class="active">Tags</label>
+                            <input type="text" id="id_tags" class="form-control validate" name="tags" placeholder="Tags" required>
+                          </div>
+                        </div>
+                        
+                        <!-- Cover column -->
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload Cover</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input validate" id="id_cover" name="cover"
+                                    aria-describedby="inputGroupFileAddon01" accept=".png,.jpg" placeholder="Choose File">
+                                    <label class="custom-file-label" for="id_cover"></label>
+                                </div>
+                            </div>
+                        </div>
+                      <!-- row -->
+    
+                      <!-- Button row -->
+                      <div class="row">
+                        <div class="col-md-12 text-center my-4">
+                          <span class=""><input type="submit" value="Publish" class="btn crose-btn bg-info"></span>
+                        </div>
+                      </div>
+                      <!-- Button row -->
+    
+                  </form>
+            </div>
+          </div>
+        </div>
+        <!-- work -->
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

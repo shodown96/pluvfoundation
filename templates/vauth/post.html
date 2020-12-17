@@ -1,0 +1,103 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}{{post.title}}{% endblock %}
+{% block posts %}active{% endblock %}
+{% block head %}<script>window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';</script>{% endblock head %}
+{% block body %}
+<div class="container">
+    <div class="card container">
+        <div class="card-header cus-header mt-n4 mr-4 ml-4 bg-crose rounded text-center">Edit {{post.title}}</div>
+            <div class="card-body">
+                <form action="{% url 'vauth:edit_post' post.slug %}" method="POST" enctype="multipart/form-data" class="contact-form-area mine">
+                {% csrf_token %}
+                    <!-- row -->
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label for="id_title" class="active">Title</label>
+                        <input type="text" id="id_title" name="title" class="form-control validate" placeholder="Title" value="{{post.title}}">
+                        </div>
+                    </div>
+
+                    <!-- Category column -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <!-- <input type="text" id="id_category" class="form-control validate" name="category" placeholder="Category" value=""> -->
+                        <label for="id_category">Category</label>
+                        <select name="category" id="id_category" class="form-control validate" name="category">
+                            <option value="{{post.category_id}}">{{post.category}}</option>
+                            {% for x in categories %}
+                            {% if x != post.category %}
+                            <option value="{{x.id}}">{{x.title}}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Content column -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label for="id_content">Content</label><br>
+                        {{form.content}}
+                        </div>
+                    </div>
+
+
+                    <!-- Tags column -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                        <label for="id_tags">Tags</label>
+                        <input type="text" id="id_tags" class="form-control validate" name="tags" placeholder="Tags"
+                        value="{% for t in post.tags.all%}{{t.name}}{% if forloop.last %}{% else %},{% endif %}{% endfor %}">
+                        </div>
+                    </div>
+                    
+                    <!-- Cover column -->
+                    <div class="col-md-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Cover</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input validate" id="id_cover" name="cover"
+                                aria-describedby="inputGroupFileAddon01" accept=".png,.jpg" placeholder="Choose File">
+                                <label class="custom-file-label" for="id_cover"></label>
+                            </div>
+                        </div>
+                        <a href="{{post.cover.url}}">Present file:{{post.cover.name}}</a>
+                    </div>
+
+                    <!-- Button row -->
+                    <div class="row">
+                    <div class="col-md-12 text-center my-4">
+                        <span class=""><input type="submit" value="Edit" class="btn crose-btn bg-info"></span>
+                    </div>
+                    </div>
+                    <!-- Button row -->
+
+                </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<script>
+/**
+ * On: focus blur => Floating label
+ * Based on http://jsfiddle.net/RyanWalters/z9ymd852/
+ */
+{% comment %} $('.custom-file-input').on('focus', function (e) {
+ $('.custom-file-labe').trigger('focus');
+  console.log("focused")
+})
+$('.md-textarea.textarea').on('blur', function (e) {
+    $('.custom-file-labe').trigger('blur');
+  console.log("blurred") {% endcomment %}
+})
+</script>
+{% endblock %}

@@ -1,0 +1,351 @@
+{% extends 'vauth/base.html' %}
+{% load static %}
+{% block title %}Analytics{% endblock %}
+{% block analytics %}active{% endblock %}
+{% block body %}
+
+<div class="preloader d-flex align-items-center justify-content-center">
+  <!-- Line -->
+  <div class="line-preloader"></div>
+</div>
+
+<div class="container-fluid px-5">
+  <section class="mt-md-4 pt-md-2 mb-5">
+    <div class="row">
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+        <div class="card animated fadeInUp">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="fas fa-money-bill-wave bg-success card-icon shadow"></i>
+            <div class="data text-right mt-4 pt-2">
+              <p class="text-uppercase">Donations</p>
+              <h5 class="font-weight-bold dark-grey-text">
+                &#x20A6; {{total_amount}}0
+              </h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-success w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+        <div class="card animated fadeInUp">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="fas fa-mail-bulk bg-warning card-icon shadow"></i>
+            <div class="data text-right mt-4 pt-2">
+              <p class="text-uppercase">Subscriptions</p>
+              <h5 class="font-weight-bold dark-grey-text">{{subscribers}}</h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-warning w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+        <div class="card animated fadeInUp">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="fas fa-chart-pie bg-blue card-icon shadow"></i>
+            <div class="data text-right mt-4 pt-2">
+              <p class="text-uppercase">Traffic</p>
+              <h5 class="font-weight-bold dark-grey-text">
+                {{visitors.count}}
+              </h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-blue w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-5">
+        <div class="card animated fadeInUp">
+          <!-- Card Data -->
+          <div class="admin-card-header mt-n4 mx-4">
+            <i class="fas fa-user bg-danger card-icon shadow"></i>
+            <div class="data text-right mt-4 pt-2">
+              <p class="text-uppercase">Users</p>
+              <h5 class="font-weight-bold dark-grey-text">
+                {{active_users.count}}
+              </h5>
+            </div>
+          </div>
+          <!-- Card content -->
+          <div class="card-body card-body-cascade">
+            <div class="progress mb-3">
+              <div class="progress-bar bg-danger w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+            <p class="card-text">Better than last week (25%)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-md-4 pt-md-2 mb-5 card card-body animated fadeInUp">
+        <div class="card-header mt-n4 mb-4 bg-blue"><h4 class="text-center text-light">Visuals</h4></div>
+    <div class="row">
+      <div class="col-lg-6 mb-4 animated fadeInUp">
+        <canvas id="myChart"></canvas>
+        <br />
+        <div id="donation_form"  class="contact-form-area">
+          <!-- <label for="">Year</label> -->
+          <div class="form-inline">
+            <input name="year" id="donation_year" type="text" placeholder="Year" class="form-control validate d-inline" value="{{year}}" />
+            <input type="button" value="Change" id="donation_button" class="btn mx-auto bg-blue crose-btn" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 animated fadeInUp">
+        <canvas id="myChart2"></canvas>
+        <br />
+        <div id="visitor_form"  class="contact-form-area">
+          <!-- <label for="">Year</label> -->
+          <div class="form-inline">
+            <input name="year" id="visitor_year" type="text" placeholder="Year" class="form-control validate" value="{{year}}" />
+            <input type="button" value="Change" id="visitor_button" class="btn mx-auto bg-blue crose-btn" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% comment %}
+  <section class="mt-md-4 pt-md-2 mb-5">
+    <div class="row"></div>
+    <div class="row"></div>
+  </section>
+  {% endcomment %}
+
+  <section class="pb-3 mb-5">
+    <!-- Grid row -->
+    <div class="row">
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+        <!-- Card Primary -->
+        <div class="card text-light bg-primary admin-credit animated fadeInUp">
+          <div class="card-body p-3">
+            <div class="pull-right">
+              <i class="ti ti-user"></i>
+            </div>
+            <p class="text-white mb-0">Users Logged in today</p>
+            <h5 class="text-white">{{logged_in_users.count}}</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-3 w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Better than last week (25%)</p>
+          </div>
+        </div>
+        <!-- Card Primary -->
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-xl-0 mb-4 ">
+        <!-- Card Yellow -->
+        <div class="card text-light bg-warning admin-credit animated fadeInUp">
+          <div class="card-body">
+            <div class="pull-right">
+              <i class="ti ti-user"></i>
+            </div>
+            <p class="text-white mb-0">Inactive Users</p>
+            <h5 class="text-white">{{inactive_users.count}}</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-3 w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Worse than last week (25%)</p>
+          </div>
+        </div>
+        <!-- Card Yellow -->
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-md-0 mb-4">
+        <!-- Card Blue -->
+        <div class="card text-white bg-blue lighten-1 admin-credit animated fadeInUp">
+          <div class="card-body">
+            <div class="pull-right">
+              <i class="fas fa-newspaper-o"></i>
+            </div>
+            <p class="text-white mb-0">Total Blog Posts</p>
+            <h5 class="text-white">{{posts.count}}</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-4 w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Better than last week (75%)</p>
+          </div>
+        </div>
+        <!-- Card Blue -->
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-xl-3 col-md-6 mb-0">
+        <!-- Card Red -->
+        <div class="card text-light bg-danger admin-credit animated fadeInUp">
+          <div class="card-body">
+            <div class="pull-right">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <p class="text-white mb-0">Total Events</p>
+            <h5 class="text-white">{{events.count}}</h5>
+          </div>
+          <div class="progress">
+            <div class="progress-bar bg-dark darken-4 w-75" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100"></div>
+          </div>
+          <div class="card-body">
+            <p class="text-white mb-0">Better than last week (25%)</p>
+          </div>
+        </div>
+        <!-- Card Red -->
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </section>
+</div>
+
+{% endblock %}
+{% block js %}
+<script src="{% static 'ngo/js/Chart.js' %}"></script>
+<script>
+  var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'Total Donations',
+        backgroundColor: 'rgb(100, 200, 140)',
+        borderColor: 'rgb(100, 200, 140)',
+        data: {{ chart_donations }},
+    fill: false
+  }]
+        },
+
+  // Configuration options go here
+  options: {}
+  });
+
+  var ctx2 = document.getElementById("myChart2").getContext("2d");
+  var chart2 = new Chart(ctx2, {
+    // The type of chart we want to create
+    type: "line",
+    // The data for our dataset
+    data: {
+      labels: months,
+      datasets: [
+        {
+          label: "Total Visitors",
+          backgroundColor: "rgb(220, 200, 0)",
+          borderColor: "rgb(220, 200, 0)",
+          data: {{chart_visitors}},
+          fill: false,
+        },
+      ],
+    },
+    // Configuration options go here
+    options: {},
+  });
+</script>
+
+<script>
+
+  $("#donation_button").click(function () {
+      if ($("input[id='donation_year']").val != "") {
+        console.log($("input[id='donation_year']").val )
+        $.ajax({
+          url: "{% url 'vauth:ajax_donations' %}",
+          method: "GET",
+          dataType: "json",
+          data: {"year":$("input[id='donation_year']").val()},
+          success: function (d) {
+            // The data for our dataset
+            (chart.data.datasets= [
+                {
+                  label: "Total Donations",
+                  backgroundColor: "rgb(100, 200, 140)",
+                  borderColor: "rgb(100, 200, 140)",
+                  data: d.amounts,
+                  fill: false,
+                },
+              ],
+              chart.update()
+              );
+          },
+          error: function (e) {
+            alert("Please Enter a Year");
+          },
+        });
+      } else {
+        alert("Please Enter a Year");
+      }
+    });
+  $("#visitor_button").click(function () {
+    if ($("input[id='visitor_year']").val != "") {
+      $.ajax({
+        url: "{% url 'vauth:ajax_visitors' %}",
+        method: "GET",
+        dataType: "json",
+        data: {"year":$("input[id='visitor_year']").val()},
+        success: function (d) {
+          // The data for our dataset
+          (chart2.data.datasets= [
+              {
+                label: "Total Visitors",
+                backgroundColor: "rgb(220, 200, 0)",
+                borderColor: "rgb(220, 200, 0)",
+                data: d.visitors,
+                fill: false,
+              },
+            ],
+            chart2.update()
+            );
+        },
+        error: function (e) {
+          alert("Please Enter a Year");
+        },
+      });
+    } else {
+      alert("Please Enter a Year");
+    }
+  });
+
+
+</script>
+
+{% endblock js %}
