@@ -26,7 +26,7 @@
         {% endif %}
         <div class="card">
             <form method="post" action="{% url 'vauth:login' %}" class="card-body">
-                <img src="{% static 'ngo/img/core-img/logo.png' %}" alt="" class="my-4">
+                <img src="{% static 'ngo/img/core-img/pluv2.png' %}" alt="" class="my-4" width="100px">
                 <h4>Please sign in</h4>
             {% csrf_token %}
             {% if form.errors %}

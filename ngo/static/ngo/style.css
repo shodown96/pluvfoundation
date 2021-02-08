@@ -2303,6 +2303,11 @@ textarea.form-control:-ms-keyboard-active, textarea.form-control:focus{
   text-align: right !important;
   float: right;
 }
+
+body{
+  overflow-y: auto;
+}
+
 /* SCROLLBAR  */
 * {
   scrollbar-width: thin;
@@ -2434,4 +2439,19 @@ textarea.form-control:-ms-keyboard-active, textarea.form-control:focus{
 
 .z-top{
   z-index: 2;
+}
+
+.brand-img{
+  /* max-width: 20%; */
+  width: 220px !important;
+  height: auto;
+  transition: all ease-in-out 0.8s;
+}
+
+.brand-img:first-child{
+  max-width: 150% !important;
+}
+
+.center-block{
+  margin-left: 27px;
 }

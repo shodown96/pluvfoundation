@@ -4,6 +4,8 @@ from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save
 from ckeditor.fields import RichTextField
+from .utils import image_resize
+
 TYPES = (
     ('P', 'Post'),
     ('PR', 'Project')
@@ -38,6 +40,10 @@ class Post(models.Model):
     class Meta:
         ordering  = ['-created']
     
+    def save(self, *args, **kwargs):
+        image_resize(self.cover, 950,950)
+        super().save(*args, **kwargs)
+    
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
@@ -56,7 +62,11 @@ class Event(models.Model):
         return reverse("ngo:event", kwargs={"slug": self.slug})
     class Meta:
         ordering  = ['-due_datetime']
-    
+
+    def save(self, *args, **kwargs):
+        image_resize(self.cover, 950,950)
+        super().save(*args, **kwargs)
+
 
 class Project(models.Model):
     title = models.CharField(max_length=100)
@@ -75,6 +85,10 @@ class Project(models.Model):
     class Meta:
         ordering  = ['-created']
 
+    def save(self, *args, **kwargs):
+        image_resize(self.cover, 950,950)
+        super().save(*args, **kwargs)
+
 class Image(models.Model):
     name = models.CharField(max_length=100)
     source = models.ImageField()
@@ -84,6 +98,10 @@ class Image(models.Model):
         return self.name
     class Meta:
         ordering  = ['-published']
+
+    def save(self, *args, **kwargs):
+        image_resize(self.source, 950,950)
+        super().save(*args, **kwargs)
 
 class Subscriber(models.Model):
     email = models.EmailField(max_length=254, unique=True)

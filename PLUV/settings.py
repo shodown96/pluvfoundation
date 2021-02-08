@@ -361,5 +361,6 @@ DEBUG_PROPAGATE_EXCEPTIONS = True
 ADMIN_STYLE = os.environ.get("ADMIN_STYLE", False)
 PHONE_NUMBER = os.environ.get("PHONE_NUMBER", "+234 701 094 9921")
 STATE_COUNTRY = os.environ.get("STATE_COUNTRY", "Kwara, NG.")
+
 import django_heroku
 django_heroku.settings(locals())
