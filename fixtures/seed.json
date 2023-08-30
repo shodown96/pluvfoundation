@@ -147,7 +147,7 @@
             "location": "Landmark, Omu-Aran",
             "position": null,
             "date_joined": "2020-05-19T09:51:01.496Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -163,7 +163,7 @@
             "location": "Somewhere",
             "position": null,
             "date_joined": "2020-05-19T23:03:31.048Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -179,7 +179,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T17:43:16.197Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -195,7 +195,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T17:44:24.617Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -211,7 +211,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T17:47:10.279Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -227,7 +227,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T17:49:04.414Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -243,7 +243,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T17:58:22.373Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -259,7 +259,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T18:00:29.643Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
@@ -275,7 +275,7 @@
             "location": "",
             "position": null,
             "date_joined": "2020-05-27T18:19:32.096Z",
-            "subscribed": null
+            "subscribed": false
         }
     },
     {
