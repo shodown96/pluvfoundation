@@ -17,7 +17,7 @@ from payment.models import Payment
 import datetime
 ###########################
 from django.contrib.auth import login
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from .tokens import account_activation_token
 import os
@@ -177,7 +177,7 @@ def complete_task(request, task_id):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = force_str(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError,OverflowError, User.DoesNotExist):
         user = None
@@ -290,16 +290,16 @@ def ajax_donations(request):
 
 def ajax_visitors(request):
     data = { 'visitors': [] }
-    if request.is_ajax() and request.GET:
-        year = request.GET.get("year")
-        if is_valid(year):
-            visitors = Visitor.objects.filter(timestamp__year=int(year))
-            for x in range(1,13):
-                vis = visitors.filter(timestamp__month=x)
-                if vis.exists():
-                    data['visitors'].append(vis.count())
-                else:
-                    data['visitors'].append(0)
+    # if request.is_ajax() and request.GET:
+    #     year = request.GET.get("year")
+    #     if is_valid(year):
+    #         visitors = Visitor.objects.filter(timestamp__year=int(year))
+    #         for x in range(1,13):
+    #             vis = visitors.filter(timestamp__month=x)
+    #             if vis.exists():
+    #                 data['visitors'].append(vis.count())
+    #             else:
+    #                 data['visitors'].append(0)
     return JsonResponse(data=data)
 
   

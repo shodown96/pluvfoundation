@@ -18,7 +18,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=100)
     position = models.CharField(max_length=100, default="Member", blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True, db_index=True)
-    subscribed = models.BooleanField(default=False)
+    subscribed = models.BooleanField(default=False, blank=True)
     class Meta:
         ordering = ['-date_joined']
     def delete(self, *args, **kwargs):
@@ -60,10 +60,10 @@ def profile_reciever(sender, instance, created, *args, **kwargs):
 
 post_save.connect(profile_reciever, sender=User)
 
-class Visitor(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
-    ip_address = models.CharField(max_length=120)
-    timestamp = models.DateTimeField(auto_now_add=True)
+# class Visitor(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+#     ip_address = models.CharField(max_length=120)
+#     timestamp = models.DateTimeField(auto_now_add=True)
 
 # def user_receiver(sender, instance, request, *args, **kwargs):
 #     user = instance

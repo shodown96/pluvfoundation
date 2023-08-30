@@ -1,8 +1,8 @@
 from django.dispatch import Signal
 
-object_viewed_signal = Signal(providing_args=['instance', 'request'])
+object_viewed_signal = Signal()
 
-user_signal = Signal(providing_args=['request'])
+user_signal = Signal()
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

@@ -92,12 +92,12 @@ class ApplicantAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name', 'middle_name', 'email', 'phone_number', 'date_applied']
     actions = [make_user]
 
-class VisitorAdmin(admin.ModelAdmin):
-    list_display = ['user','ip_address', 'timestamp']
+# class VisitorAdmin(admin.ModelAdmin):
+#     list_display = ['user','ip_address', 'timestamp']
 
 UserAdmin.actions = [delete_inactive_users]
     
 admin.site.register(Profile , ProfileAdmin)
 admin.site.register(Task, TaskAdmin)
 admin.site.register(Applicant, ApplicantAdmin)
-admin.site.register(Visitor, VisitorAdmin)
+# admin.site.register(Visitor, VisitorAdmin)
